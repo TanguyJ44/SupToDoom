@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SupToDoom</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="header col-md-3">
+                <picture>
+                    <source srcset="res/LogoB.png" media="(prefers-color-scheme: dark)">
+                    <img src="res/LogoN.png">
+                </picture>
+            </div>
+            <div class="msg col-md-9">
+                <div class="menu">
+                    <div class="title" onclick="menu()">Anatole DERVAL <span class="fa fa-bars"></span>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="dropdown">
+                        <p class="menuspan" id="inbox" onclick="dispbox();">Notifications <span class="fa fa-inbox"></span></p>
+                        <p class="menuspan" id="friends" onclick="dispfriends();">Amis <span class="fas fa-users"></span></p>
+                        <p class="menuspan">Déconnexion <span class="fas fa-sign-out-alt"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="left col-md-3">
+                <div class="row">
+                    <h3>Mes Listes</h3>
+                    <div class="add">
+                        <button class="icon-btn add-btn" onclick="createList();">
+                      <div class="add-icon"></div>
+                      <div class="btn-txt">Ajouter</div>
+                    </button>
+                    </div>
+                </div>
+                <div class="list" id="insertList">
+                </div>
+            </div>
+            <div class="middle col-md-6">
+                <div class="row">
+                    <h3 class="task">Mes Tâches</h3>
+                    <div class="addtask">
+                        <button class="icon-btn add-btn" id="add-task" onclick="createTask();">
+                            <div class="add-icon"></div>
+                            <div class="btn-txt">Ajouter</div>
+                        </button>
+                    </div>
+                </div>
+                <div id="insert">
+                </div>
+            </div>
+            <div class="right col-md-3">
+                <div id="clickfriend" class="clickfriend">
+                    <div class="row">
+                        <h3 class="frienddiv">Amis</h3>
+                        <div class="addfriend">
+                            <button class="icon-btn add-btn" onclick="createFriend();">
+                            <div class="add-icon"></div>
+                            <div class="btn-txt">Ajouter</div>
+                        </button>
+                        </div>
+                    </div>
+                    <div id="insertFriend">
+                    </div>
+                </div>
+                <div id="clickbox" class="clickbox">
+                    <div>
+                        <h3 class="boxdiv">Notifications</h3>
+                    </div>
+                    <div id="insertmsg">
+                    </div>
+                </div>
+                <div id="shareL">
+                    <div>
+                        <h3 class="boxdiv">Partager à</h3>
+                    </div>
+                    <div class="row inputF">
+                        <input class="shareList" placeholder="Partager à">
+                    </div>
+                    <div class="btn row sharebtn">
+                        <a class="effect1" href="#">
+                      Partager
+                      <span class="bg"></span>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

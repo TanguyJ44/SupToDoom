@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SupToDoom</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body onload="onCheckConnection()">
+    <div>
+        <div class="header">
+            <picture>
+                <source srcset="../res/LogoB.png" media="(prefers-color-scheme: dark)">
+                <img src="../res/LogoN.png">
+            </picture>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="center-panel col-md-12">
+                    <div class="row middle">
+                        <div class="connexion col-md-5">
+                            <p class="titre">🔓 Connexion</p>
+                            <p class="login-error-msg">Email ou Mot de passe incorrect !</p>
+                            <div class="input-group">
+                                <label id="label-1">Pseudo/Email</label>
+                                <input onkeyup="checkLabel('label-1',this)" onkeydown="checkLabel('label-1',this)" id="input-1" type="text" name="name" required>
+                            </div>
+                            <div class="input-group">
+                                <label id="label-2">Password</label>
+                                <input onkeyup="checkLabel('label-2',this)" onkeydown="checkLabel('label-2',this)" id="input-2" type="password" name="name" required>
+                            </div>
+                            <div class="btn">
+                                <div class="effect1" onclick="onLogin()">
+                                    Connexion
+                                    <span class="bg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register col-md-5">
+                            <p class="titre">📋 Inscription</p>
+                            <p class="register-error-msg">Certains champs sont incorrect !</p>
+                            <div class="input-group">
+                                <label id="label-3">Pseudo</label>
+                                <input onkeyup="checkLabel('label-3',this)" onkeydown="checkLabel('label-3',this)" id="input-3" type="text" name="name" required>
+                            </div>
+                            <div class="input-group">
+                                <label id="label-4">Email</label>
+                                <input onkeyup="checkLabel('label-4',this)" onkeydown="checkLabel('label-4',this)" id="input-4" type="text" name="name" required>
+                            </div>
+                            <div class="input-group">
+                                <label id="label-5">Password</label>
+                                <input onkeyup="checkLabel('label-5',this)" onkeydown="checkLabel('label-5',this)" id="input-5" type="password" name="name" required>
+                            </div>
+                            <div class="input-group">
+                                <label id="label-6">Confirm Password</label>
+                                <input onkeyup="checkLabel('label-6',this)" onkeydown="checkLabel('label-6',this)" id="input-6" type="password" name="name" required>
+                            </div>
+                            <div class="btn">
+                                <div class="effect1" onclick="onRegister()">
+                                    Inscription
+                                    <span class="bg"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
