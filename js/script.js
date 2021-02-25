@@ -24,6 +24,8 @@ function dispbox() {
     if (document.getElementById("clickbox").display == "true") {
         document.getElementById("clickbox").style.display = "none";
     } else {
+        getUserNotif();
+
         document.getElementById("clickbox").style.display = "block";
         document.getElementById("clickfriend").style.display = "none";
         document.getElementById("shareL").style.display = "none";
@@ -93,7 +95,78 @@ function acceptmsg(id) {
     document.getElementById(id).fadeOut();
 }
 
-
 function deleteList(id) {
     document.getElementById(id).remove();
+}
+
+
+function onCheckConnection() {
+    $.ajax({
+        url : 'php/load.php',
+        type : 'GET',
+        dataType : 'html',
+        success : function(data_txt, statut){
+            if (data_txt == "disconnected") {
+                document.location.href="login/index.html";
+            } else {
+                getUserData();
+            }
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function disconnect() {
+    $.ajax({
+        url : 'php/user.php',
+        type : 'GET',
+        data : 'func=disconnect',
+        dataType : 'html',
+        success : function(data_txt, statut){
+            if (data_txt == "logout-success") {
+                document.location.href="login/index.html";
+            }
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function getUserData() {
+    $.ajax({
+        url : 'php/user.php',
+        type : 'GET',
+        data : 'func=userData',
+        dataType : 'html',
+        success : function(data_txt, statut){
+            $("#title-name").text(data_txt);
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function getUserNotif() {
+    $.ajax({
+        url : 'php/user.php',
+        type : 'GET',
+        data : 'func=notif',
+        dataType : 'html',
+        success : function(data_txt, statut){
+            $.each(JSON.parse(data_txt), function(i, obj) {
+                $("#insertmsg").append("<p id='notif-msg'>⚈ " + obj.content + "</p>");
+           });
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
 }

@@ -40,6 +40,15 @@
     margin-top: 1%;
 }
 
+#menu-icon {
+    margin-top: -5%;
+}
+
+#notif-msg {
+    margin-top: 20px;
+    color: white;
+}
+
 @media (prefers-color-scheme: dark) {
     .header {
         background-color: black;

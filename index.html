@@ -17,7 +17,7 @@
     <script src="js/script.js"></script>
 </head>
 
-<body>
+<body onload="onCheckConnection()">
     <div class="container-fluid">
         <div class="row">
             <div class="header col-md-3">
@@ -28,13 +28,15 @@
             </div>
             <div class="msg col-md-9">
                 <div class="menu">
-                    <div class="title" onclick="menu()">Anatole DERVAL <span class="fa fa-bars"></span>
+                    <div class="title" onclick="menu()">
+                        <h3 id="title-name">Chargement ...</h3>
+                        <span class="fa fa-bars" id="menu-icon"></span>
                         <div class="arrow"></div>
                     </div>
                     <div class="dropdown">
                         <p class="menuspan" id="inbox" onclick="dispbox();">Notifications <span class="fa fa-inbox"></span></p>
                         <p class="menuspan" id="friends" onclick="dispfriends();">Amis <span class="fas fa-users"></span></p>
-                        <p class="menuspan">Déconnexion <span class="fas fa-sign-out-alt"></span></p>
+                        <p class="menuspan" onclick="disconnect();">Déconnexion <span class="fas fa-sign-out-alt"></span></p>
                     </div>
                 </div>
             </div>
