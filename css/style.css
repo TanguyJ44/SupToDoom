@@ -49,6 +49,18 @@
     color: white;
 }
 
+#task-none {
+    margin-top: 5%;
+    margin-left: 20%;
+    font-size: 20px;
+}
+
+#list-none {
+    margin-top: 5%;
+    font-size: 20px;
+    color: gray;
+}
+
 @media (prefers-color-scheme: dark) {
     .header {
         background-color: black;
@@ -188,7 +200,6 @@
     .namefriend {
         color: white;
         font-size: 25px;
-        margin-left: 15%;
         margin-top: 8%;
     }
     .msgalert {
@@ -277,6 +288,18 @@
         color: white;
         margin-top: 20%;
         margin-left: 2%;
+    }
+    .deleteall {
+        cursor: pointer;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+    }
+    .checkall {
+        cursor: pointer;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
     }
 }
 
@@ -471,7 +494,6 @@
     .namefriend {
         color: black;
         font-size: 25px;
-        margin-left: 15%;
         margin-top: 8%;
     }
     .msgalert {
@@ -497,6 +519,18 @@
         color: black;
         border: none;
         text-decoration: none;
+    }
+    .deleteall {
+        cursor: pointer;
+        font-size: 40px;
+        color: black;
+        cursor: pointer;
+    }
+    .checkall {
+        cursor: pointer;
+        font-size: 40px;
+        color: black;
+        cursor: pointer;
     }
 }
 

@@ -17,6 +17,10 @@
 
         if (strcmp($current_password, $send_password) == 0) {
             $_SESSION['user-id'] = $data['id'];
+
+            $stmt = $db->prepare("UPDATE users SET isOnline=1 WHERE id=:id");
+            $stmt->execute(['id' => $_SESSION['user-id']]);
+
             echo 'success';
         } else {
             echo 'error';
