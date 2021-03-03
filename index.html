@@ -53,11 +53,15 @@
                     </div>
                 </div>
                 <div class="list" id="insertList">
+                    <h4 id="list-none">Vous n'avez pas de liste</h4>
                 </div>
             </div>
             <div class="middle col-md-6">
                 <div class="row">
-                    <h3 class="task">Mes Tâches</h3>
+                    <h3 class="task">Mes Tâches
+                        <i class="fas fa-check checkall" onclick=""></i>
+                        <i class="fas fa-trash-alt deleteall" onclick=""></i>
+                    </h3>
                     <div class="addtask">
                         <button class="icon-btn add-btn" id="add-task" onclick="createTask();">
                             <div class="add-icon"></div>
@@ -66,6 +70,7 @@
                     </div>
                 </div>
                 <div id="insert">
+                    <h4 id="task-none">Sélectionner une liste pour afficher des tâches</h4>
                 </div>
             </div>
             <div class="right col-md-3">
@@ -96,11 +101,11 @@
                     <div class="row inputF">
                         <input class="shareList" placeholder="Partager à">
                     </div>
-                    <div class="btn row sharebtn">
-                        <a class="effect1" href="#">
-                      Partager
-                      <span class="bg"></span>
-                    </a>
+                    <div class="btn row sharebtn" onclick="onShareList();">
+                        <a class="effect1">
+                            Partager
+                            <span class="bg"></span>
+                        </a>
                     </div>
                 </div>
             </div>
