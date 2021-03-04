@@ -22,7 +22,7 @@
 }
 
 .addtask {
-    margin-left: 57%;
+    margin-left: 47%;
     margin-top: 1%;
 }
 
@@ -301,6 +301,10 @@
         color: white;
         cursor: pointer;
     }
+    label {
+        font-size: 20px;
+        color: white;
+    }
 }
 
 @media (prefers-color-scheme: light) {
@@ -532,6 +536,14 @@
         color: black;
         cursor: pointer;
     }
+    label {
+        font-size: 20px;
+        color: black;
+    }
+}
+
+.checkall, .deleteall {
+    margin-left: 15px;
 }
 
 .add-btn:hover {
@@ -712,5 +724,9 @@ span {
 }
 
 .box {
+    margin-top: 5%;
+}
+
+.perm {
     margin-top: 5%;
 }

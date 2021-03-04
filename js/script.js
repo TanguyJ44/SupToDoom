@@ -50,21 +50,14 @@ function hideShare() {
     document.getElementById("shareL").style.display = "none";
 }
 
-
-var countId = 1;
-
 function createTask() {
     var corps = document.getElementById("insert");
-    corps.innerHTML = corps.innerHTML + "<div id='deleteTask" + countId + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input id='task" + countId + "' class='taskname' value='task à faire1' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(&#x0027;task" + countId + "&#x0027;);'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(&#x0027;deleteTask" + countId + "&#x0027);'></i></div></div></div>";
-    countId++;
+    corps.innerHTML = corps.innerHTML + "<div id='deleteTask'><div class='row taskline box' id='taskline'><div class='col-md-11'><input id='task-input' class='taskname' placeholder='Titre de ma tache' size='40'></div><div class='col-md-1'><i class='fas fa-check check' onclick='createNewTask();'></i></div></div></div>";
 }
-
-var countIdList = 1;
 
 function createList() {
     var corpsL = document.getElementById("insertList");
-    corpsL.innerHTML = corpsL.innerHTML + "<div id='deleteList" + countIdList + "'><div class='row taskline box' id='taskline'><div class='col-md-8'><input id='list" + countIdList + "' class='taskname' value='Listename' disabled></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(&#x0027;deleteList" + countIdList + "&#x0027);'></i></div></div></div>";
-    countIdList++;
+    corpsL.innerHTML = corpsL.innerHTML + "<div id='deleteList'><div class='row taskline box' id='taskline'><div class='col-md-10'><input id='list-input' class='taskname' placeholder='Entrer un nom'></div><div class='col-md-2'><i class='fas fa-check deletemsg' onclick='onCreateNewList();'></i></div></div></div>";
 }
 
 var countIdMsg = 1;
@@ -90,9 +83,9 @@ function crosstask(id) {
     }
 }
 
-function deleteTask(id) {
+/*function deleteTask(id) {
     document.getElementById(id).remove();
-}
+}*/
 
 function deletemsg(id) {
     document.getElementById(id).remove();
@@ -102,9 +95,6 @@ function acceptmsg(id) {
     document.getElementById(id).fadeOut();
 }
 
-function deleteList(id) {
-    document.getElementById(id).remove();
-}
 
 
 function onCheckConnection() {
@@ -310,7 +300,7 @@ function getUserLists() {
         success : function(data_txt, statut) {
             $("#insertList").empty();
             $.each(JSON.parse(data_txt), function(i, obj) {
-                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare(" + obj.id + ");'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(" + obj.id + ");'></i></div></div>");
+                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare(" + obj.id + ");'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='onDeleteList(" + obj.id + ");'></i></div></div>");
            });
            getShareLists();
         },
@@ -329,7 +319,7 @@ function getShareLists() {
         dataType : 'html',
         success : function(data_txt, statut) {
             $.each(JSON.parse(data_txt), function(i, obj) {
-                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-retweet share' onclick='hideShare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(" + obj.id + ");'></i></div></div>");
+                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-retweet share' onclick='hideShare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='onDeleteList(" + obj.id + ");'></i></div></div>");
            });
         },
         error : function(result, statut, erreur){
@@ -345,7 +335,7 @@ function onShareList() {
     $.ajax({
         url : 'php/lists.php',
         type : 'GET',
-        data : 'func=newShareList&friendShare='+ $(".shareList").val() + '&listId=' + $(".shareList").attr('id'),
+        data : 'func=newShareList&friendShare='+ $(".shareList").val() + '&listId=' + $(".shareList").attr('id') + '&sharePerms=' + $("#perm-select").val(),
         dataType : 'html',
         success : function(data_txt, statut) {
             if (data_txt == "success") {
@@ -364,7 +354,40 @@ function onShareList() {
     });
 }
 
+function onCreateNewList() {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=createNewList&listeName=' + $("#list-input").val(),
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getUserLists();
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function onDeleteList(listId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteUserList&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getUserLists();
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
 function getListTasks(listId) {
+    $(".add-btn").prop("disabled", false);
     $.ajax({
         url : 'php/lists.php',
         type : 'GET',
@@ -374,11 +397,98 @@ function getListTasks(listId) {
             $("#insert").empty();
             $.each(JSON.parse(data_txt), function(i, obj) {
                 if (obj.state == 0) {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(taskline" + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(task" + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDown(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 } else {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(taskline" + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(task" + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDown(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 }
+                $('.checkall').attr('id', listId);
+                $('.deleteall').attr('id', listId);
            });
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function createNewTask() {
+    let listId = $('.checkall').attr('id');
+    let taskInput = $('#task-input').val();
+
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=createListTask&listId=' + listId + '&taskName=' + taskInput,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function deleteTask(listId, taskId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteListTask&listId=' + listId + '&taskId=' + taskId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function markTaskAsDown(listId, taskId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=markTaskAsDown&listId=' + listId + '&taskId=' + taskId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function doneAllTask() {
+    let listId = $('.checkall').attr('id');
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=doneAllTask&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+function deleteAllDoneTask() {
+    let listId = $('.deleteall').attr('id');
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteAllDoneTask&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
         },
         error : function(result, statut, erreur){
             alert("Error !");
