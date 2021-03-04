@@ -6,6 +6,7 @@
 
     session_start();
 
+    // Répartiteur de fonction
     if ($func == "userData") {
         getUserData();
     } else if ($func == "notif") {
@@ -22,6 +23,7 @@
         disconnectUser();
     }
 
+    // Récupérer les informations sur l'utilisateur
     function getUserData() {
         global $db;
 
@@ -32,6 +34,7 @@
         echo $data['pseudo'];
     }
 
+    // Récupérer les notifications de l'utilisateur
     function getUserNotif() {
         global $db;
 
@@ -47,6 +50,7 @@
         echo json_encode($datas);
     }
 
+    // Accepter un partage de liste
     function allowShare() {
         global $notifId;
         global $db;
@@ -58,6 +62,7 @@
         onDeleteNotif($notifId);
     }
 
+    // Refuser un partage de liste
     function denyShare() {
         global $notifId;
         global $targetId;
@@ -69,6 +74,7 @@
         onDeleteNotif($notifId);
     }
 
+    // Accepter une demande d'ami
     function allowFriend() {
         global $notifId;
         global $targetId;
@@ -92,6 +98,7 @@
         onDeleteNotif($notifId);
     }
 
+    // Refuser une demande d'ami
     function denyFriend() {
         global $notifId;
         global $targetId;
@@ -103,6 +110,7 @@
         onDeleteNotif($notifId);
     }
 
+    // Déconnecter l'utilisateur
     function disconnectUser() {
         global $db;
 
@@ -116,6 +124,7 @@
 
     // fonction utils
 
+    // Supprimer une notification
     function onDeleteNotif($id) {
         global $db;
 

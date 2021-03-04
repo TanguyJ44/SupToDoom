@@ -6,12 +6,14 @@
 
     session_start();
 
+    // Répartiteur de fonction
     if ($func == "userFriends") {
         getUserFriends();
     } else if ($func == "userSearchFriends") {
         searchUserFriend();
     }
 
+    // Récupérer les amis de l'utilisateur
     function getUserFriends() {
         global $db;
 
@@ -28,6 +30,7 @@
         echo json_encode($datas);
     }
 
+    // Rechercher et ajouter un nouvel ami
     function searchUserFriend() {
         global $db;
         global $friendSearch;
@@ -66,6 +69,7 @@
 
     // function utils
 
+    // Récupérer le pseudo de l'utilisateur
     function getUserPseudo($userId) {
         global $db;
 

@@ -6,6 +6,8 @@
 
     session_start();
 
+    // Enregistrer une nouvel utilisateur
+
     $stmt = $db->prepare("SELECT id FROM users WHERE pseudo=:pseudo");
     $stmt->execute(['pseudo' => $pseudo]); 
     $dataPseudo = $stmt->fetch(PDO::FETCH_BOTH);
@@ -38,7 +40,7 @@
         echo 'error-pseudo';
     }
 
-
+    // Récupérer l'id du nouvel utilisateur
     function getNewUserId($userEmail) {
         global $db;
 

@@ -6,6 +6,7 @@
 
     session_start();
 
+    // Répartiteur de fonction
     if ($func == "userList") {
         getUserLists();
     } else if ($func == "userShareList") {
@@ -30,6 +31,7 @@
         onDeleteAllDoneTask();
     }
 
+    // Récupérer les listes de l'utilisateur
     function getUserLists() {
         global $db;
 
@@ -45,6 +47,7 @@
         echo json_encode($datas);
     }
 
+    // Récupérer les listes partagées de l'utilisateur
     function getUserShareLists() {
         global $db;
 
@@ -63,6 +66,7 @@
         echo json_encode($datas);
     }
 
+    // Partager une liste
     function onShareList() {
         global $db;
         global $friendShare;
@@ -109,6 +113,7 @@
         }
     }
 
+    // Créer une nouvelle liste
     function onCreateNewList() {
         global $db;
         global $listeName;
@@ -120,6 +125,7 @@
         ));
     }
 
+    // Supprimer une liste
     function onDeleteUserList() {
         global $db;
         global $listId;
@@ -139,6 +145,7 @@
             }
     }
 
+    // Récupérer les taches d'une liste
     function getListTasks() {
         global $db;
         global $listId;
@@ -155,6 +162,7 @@
         echo json_encode($datas);
     }
 
+    // Créer une nouvelle tache dans une liste
     function onCreateListTask() {
         global $db;
         global $listId;
@@ -169,6 +177,7 @@
         }
     }
 
+    // Supprimer une tache
     function onDeleteListTask() {
         global $db;
         global $listId;
@@ -180,6 +189,7 @@
         }
     }
 
+    // Marquer une tache comme terminée
     function onMarkTaskAsDone() {
         global $db;
         global $listId;
@@ -201,6 +211,7 @@
         }
     }
 
+    // Marquer toutes les taches comme terminées
     function onDoneAllTask() {
         global $db;
         global $listId;
@@ -211,6 +222,7 @@
         }
     }
 
+    // Supprimer toutes les taches terminées
     function onDeleteAllDoneTask() {
         global $db;
         global $listId;
@@ -223,6 +235,7 @@
 
     // function utils
 
+    // Récupérer le pseudo de l'utilisateur
     function getUserPseudo($userId) {
         global $db;
 
@@ -234,6 +247,7 @@
         return $result["pseudo"];
     }
 
+    // Vérifier si l'utilisateur est le propriétaire de la liste
     function checkUserIsListOwner($listId) {
         global $db;
 
@@ -247,6 +261,7 @@
         }
     }
 
+    // Vérifier les permissions de l'utilisateur sur une liste
     function checkUserListPerms($listId) {
         global $db;
 

@@ -6,6 +6,7 @@
 
     session_start();
 
+    // Vérifier si l'email et le mot de passe existes et sont correctes
     $stmt = $db->prepare("SELECT * FROM users WHERE email=:email");
     $stmt->execute(['email' => $email]); 
     $data = $stmt->fetch(PDO::FETCH_BOTH);
