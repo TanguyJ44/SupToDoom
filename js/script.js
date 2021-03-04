@@ -378,6 +378,7 @@ function onDeleteList(listId) {
         dataType : 'html',
         success : function(data_txt, statut) {
             getUserLists();
+            $("#insert").empty();
         },
         error : function(result, statut, erreur){
             alert("Error !");
@@ -387,6 +388,8 @@ function onDeleteList(listId) {
 }
 
 function getListTasks(listId) {
+    $('.checkall').attr('id', listId);
+    $('.deleteall').attr('id', listId);
     $(".add-btn").prop("disabled", false);
     $.ajax({
         url : 'php/lists.php',
@@ -397,9 +400,9 @@ function getListTasks(listId) {
             $("#insert").empty();
             $.each(JSON.parse(data_txt), function(i, obj) {
                 if (obj.state == 0) {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDown(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDone(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 } else {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDown(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDone(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 }
                 $('.checkall').attr('id', listId);
                 $('.deleteall').attr('id', listId);
@@ -447,13 +450,14 @@ function deleteTask(listId, taskId) {
     });
 }
 
-function markTaskAsDown(listId, taskId) {
+function markTaskAsDone(listId, taskId) {
     $.ajax({
         url : 'php/lists.php',
         type : 'GET',
-        data : 'func=markTaskAsDown&listId=' + listId + '&taskId=' + taskId,
+        data : 'func=markTaskAsDone&listId=' + listId + '&taskId=' + taskId,
         dataType : 'html',
         success : function(data_txt, statut) {
+            console.log(data_txt);
             getListTasks(listId);
         },
         error : function(result, statut, erreur){

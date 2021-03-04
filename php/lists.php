@@ -22,7 +22,7 @@
         onCreateListTask();
     } else if ($func == "deleteListTask") {
         onDeleteListTask();
-    } else if ($func == "markTaskAsDown") {
+    } else if ($func == "markTaskAsDone") {
         onMarkTaskAsDone();
     } else if ($func == "doneAllTask") {
         onDoneAllTask();
@@ -191,8 +191,6 @@
 
             $result = $stmt->fetch();
 
-            echo ":: " . $result["state"];
-
             if ($result["state"] == 0) {
                 $stmt = $db->prepare("UPDATE tasks SET state = 1 WHERE id=:id AND listId=:listId");
                 $stmt->execute(['id' => $taskId, 'listId' => $listId]);
@@ -252,7 +250,7 @@
     function checkUserListPerms($listId) {
         global $db;
 
-        $stmt = $db->prepare("SELECT perms FROM shares WHERE userId=:userId AND listId=:id");
+        $stmt = $db->prepare("SELECT perms FROM shares WHERE userId=:userId AND listId=:listId");
         $stmt->execute(['userId' => $_SESSION['user-id'], 'listId' => $listId]); 
 
         $result = $stmt->fetch();
