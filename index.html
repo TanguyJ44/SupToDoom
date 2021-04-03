@@ -59,11 +59,11 @@
             <div class="middle col-md-6">
                 <div class="row">
                     <h3 class="task">Mes Tâches
-                        <i class="fas fa-check checkall" onclick=""></i>
-                        <i class="fas fa-trash-alt deleteall" onclick=""></i>
+                        <i class="fas fa-check checkall" onclick="doneAllTask();"></i>
+                        <i class="fas fa-trash-alt deleteall" onclick="deleteAllDoneTask();"></i>
                     </h3>
                     <div class="addtask">
-                        <button class="icon-btn add-btn" id="add-task" onclick="createTask();">
+                        <button class="icon-btn add-btn" id="add-task" onclick="createTask();" disabled>
                             <div class="add-icon"></div>
                             <div class="btn-txt">Ajouter</div>
                         </button>
@@ -99,7 +99,14 @@
                         <h3 class="boxdiv">Partager à</h3>
                     </div>
                     <div class="row inputF">
-                        <input class="shareList" placeholder="Partager à">
+                        <input class="shareList" placeholder="Partager à (Pseudo/Email)">
+                    </div>
+                    <div class="row perm">
+                        <label for="perm-select">Permissions :</label>
+                        <select name="perm" id="perm-select">
+                            <option value="0">Lecture seule</option>
+                            <option value="1">Lecture / Écriture</option>
+                        </select>
                     </div>
                     <div class="btn row sharebtn" onclick="onShareList();">
                         <a class="effect1">

@@ -1,3 +1,4 @@
+// Intéractions du menu
 function menu() {
     document.getElementsByClassName('dropdown')[0].classList.toggle('down');
     document.getElementsByClassName('arrow')[0].classList.toggle('gone');
@@ -10,6 +11,7 @@ function menu() {
     }
 }
 
+// Afficher la zone d'amies
 function dispfriends() {
     if (document.getElementById("clickfriend").display == "true") {
         document.getElementById("clickfriend").style.display = "block";
@@ -22,6 +24,7 @@ function dispfriends() {
     }
 }
 
+// Afficher la zone de notification
 function dispbox() {
     if (document.getElementById("clickbox").display == "true") {
         document.getElementById("clickbox").style.display = "none";
@@ -34,6 +37,7 @@ function dispbox() {
     }
 }
 
+// Afficher la zone de partage
 function dispshare(listId) {
     if (document.getElementById("shareL").display == "true") {
         document.getElementById("shareL").style.display = "none";
@@ -46,67 +50,40 @@ function dispshare(listId) {
     }
 }
 
+// Masquer la zone de partage
 function hideShare() {
     document.getElementById("shareL").style.display = "none";
 }
 
-
-var countId = 1;
-
+// Afficher la zone de création d'une nouvelle tache
 function createTask() {
     var corps = document.getElementById("insert");
-    corps.innerHTML = corps.innerHTML + "<div id='deleteTask" + countId + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input id='task" + countId + "' class='taskname' value='task à faire1' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(&#x0027;task" + countId + "&#x0027;);'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(&#x0027;deleteTask" + countId + "&#x0027);'></i></div></div></div>";
-    countId++;
+    corps.innerHTML = corps.innerHTML + "<div id='deleteTask'><div class='row taskline box' id='taskline'><div class='col-md-11'><input id='task-input' class='taskname' placeholder='Titre de ma tache' size='40'></div><div class='col-md-1'><i class='fas fa-check check' onclick='createNewTask();'></i></div></div></div>";
 }
 
-var countIdList = 1;
-
+// Afficher la zone de création d'une nouvelle liste
 function createList() {
     var corpsL = document.getElementById("insertList");
-    corpsL.innerHTML = corpsL.innerHTML + "<div id='deleteList" + countIdList + "'><div class='row taskline box' id='taskline'><div class='col-md-8'><input id='list" + countIdList + "' class='taskname' value='Listename' disabled></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(&#x0027;deleteList" + countIdList + "&#x0027);'></i></div></div></div>";
-    countIdList++;
+    corpsL.innerHTML = corpsL.innerHTML + "<div id='deleteList'><div class='row taskline box' id='taskline'><div class='col-md-10'><input id='list-input' class='taskname' placeholder='Entrer un nom'></div><div class='col-md-2'><i class='fas fa-check deletemsg' onclick='onCreateNewList();'></i></div></div></div>";
 }
 
-var countIdMsg = 1;
-
-function createMsg() {
-    var corps = document.getElementById("insertmsg");
-    corps.innerHTML = corps.innerHTML + "<div id='deletemsg" + countIdMsg + "'><div class='row taskline box' id='taskline'><div class='col-md-8'><p id='msg" + countIdMsg + "' class='taskname'>msgtext</p></div><div class='col-md-2'><i class='fas fa-check checkmsg' onclick='acceptmsg(&#x0027;msg" + countId + "&#x0027;);'></i></div><div class='col-md-2'><i class='fas fa-trash-alt deletemsg' onclick='deletemsg(&#x0027;deletemsg" + countIdMsg + "&#x0027);'></i></div></div></div>";
-    countIdMsg++;
-}
-
-
+// Afficher la zone d'ajout d'un nouvel ami
 function createFriend() {
     var corpsF = document.getElementById("insertFriend");
     corpsF.innerHTML = corpsF.innerHTML + "<div class='row'><div class='row col-md-10'><input placeholder='Pseudo / Email de votre ami' class='namefriend' size=29></div><div class='col-md-2'><i class='fas fa-search search' onclick='onSearchFriend();'></i></div></div>"
 }
 
-
-function crosstask(id) {
-    if (document.getElementById(id).style.textDecoration == "none") {
-        document.getElementById(id).style.textDecoration = "line-through";
-    } else {
-        document.getElementById(id).style.textDecoration = "none";
-    }
-}
-
-function deleteTask(id) {
-    document.getElementById(id).remove();
-}
-
+// Supprimer un message
 function deletemsg(id) {
     document.getElementById(id).remove();
 }
 
+// Accepter un message
 function acceptmsg(id) {
     document.getElementById(id).fadeOut();
 }
 
-function deleteList(id) {
-    document.getElementById(id).remove();
-}
-
-
+// Vérifier si l'utilisateur est bien connecté
 function onCheckConnection() {
     $.ajax({
         url : 'php/load.php',
@@ -121,12 +98,12 @@ function onCheckConnection() {
             }
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Déconnecter l'utilisateur de sa session
 function disconnect() {
     $.ajax({
         url : 'php/user.php',
@@ -139,12 +116,12 @@ function disconnect() {
             }
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Récupérer les données sur l'utilisateur
 function getUserData() {
     $.ajax({
         url : 'php/user.php',
@@ -155,12 +132,12 @@ function getUserData() {
             $("#title-name").text(data_txt);
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Récupérer toutes les notifications de l'utilisateur
 function getUserNotifs() {
     $.ajax({
         url : 'php/user.php',
@@ -178,12 +155,12 @@ function getUserNotifs() {
            });
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Approuver ou refuser une demande d'amie ou de partage
 // type : 0 = share & 1 = friend
 function setActionNotif(type, id, targetId, action) {
     if (type == 0) {
@@ -197,7 +174,6 @@ function setActionNotif(type, id, targetId, action) {
                     getUserNotifs();
                 },
                 error : function(result, statut, erreur){
-                    alert("Error !");
                     console.log(erreur);
                 }
             });
@@ -212,7 +188,6 @@ function setActionNotif(type, id, targetId, action) {
                     getUserLists();
                 },
                 error : function(result, statut, erreur){
-                    alert("Error !");
                     console.log(erreur);
                 }
             });
@@ -228,7 +203,6 @@ function setActionNotif(type, id, targetId, action) {
                     getUserNotifs();
                 },
                 error : function(result, statut, erreur){
-                    alert("Error !");
                     console.log(erreur);
                 }
             });
@@ -242,7 +216,6 @@ function setActionNotif(type, id, targetId, action) {
                     getUserNotifs();
                 },
                 error : function(result, statut, erreur){
-                    alert("Error !");
                     console.log(erreur);
                 }
             });
@@ -250,6 +223,7 @@ function setActionNotif(type, id, targetId, action) {
     }
 }
 
+// Récupérer tous les amies de l'utilisateur
 function getUserFriends() {
     $.ajax({
         url : 'php/friends.php',
@@ -271,12 +245,12 @@ function getUserFriends() {
            });
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Ajouter une nouvelle amie
 function onSearchFriend() {
     $(".namefriend").prop('disabled', true);
     $("#noUserFound").empty();
@@ -295,12 +269,12 @@ function onSearchFriend() {
             }
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Récupérer toutes les listes de l'utilisateur
 function getUserLists() {
     $.ajax({
         url : 'php/lists.php',
@@ -310,17 +284,17 @@ function getUserLists() {
         success : function(data_txt, statut) {
             $("#insertList").empty();
             $.each(JSON.parse(data_txt), function(i, obj) {
-                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare(" + obj.id + ");'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(" + obj.id + ");'></i></div></div>");
+                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-share share' onclick='dispshare(" + obj.id + ");'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='onDeleteList(" + obj.id + ");'></i></div></div>");
            });
            getShareLists();
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Récupérer les listes partagées de l'utilisateur
 function getShareLists() {
     $.ajax({
         url : 'php/lists.php',
@@ -329,23 +303,23 @@ function getShareLists() {
         dataType : 'html',
         success : function(data_txt, statut) {
             $.each(JSON.parse(data_txt), function(i, obj) {
-                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-retweet share' onclick='hideShare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='deleteList(" + obj.id + ");'></i></div></div>");
+                $("#insertList").append("<div id='" + obj.id + "' onclick='getListTasks(" + obj.id + ");'><div class='row taskline box' id='taskline'><div class='col-md-8'><h4 class='taskname'>" + obj.title + "</h4></div><div class='col-md-2'><i class='fas fa-retweet share' onclick='hideShare();'></i></div><div class='col-md-2'><i class='fas fa-trash-alt delete' onclick='onDeleteList(" + obj.id + ");'></i></div></div>");
            });
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Partager une liste
 function onShareList() {
     $(".shareList").prop('disabled', true);
     $("#noUserFound").empty();
     $.ajax({
         url : 'php/lists.php',
         type : 'GET',
-        data : 'func=newShareList&friendShare='+ $(".shareList").val() + '&listId=' + $(".shareList").attr('id'),
+        data : 'func=newShareList&friendShare='+ $(".shareList").val() + '&listId=' + $(".shareList").attr('id') + '&sharePerms=' + $("#perm-select").val(),
         dataType : 'html',
         success : function(data_txt, statut) {
             if (data_txt == "success") {
@@ -358,13 +332,49 @@ function onShareList() {
             }
         },
         error : function(result, statut, erreur){
-            alert("Error !");
             console.log(erreur);
         }
     });
 }
 
+// Créer une nouvelle liste
+function onCreateNewList() {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=createNewList&listeName=' + $("#list-input").val(),
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getUserLists();
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Supprimer une liste
+function onDeleteList(listId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteUserList&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getUserLists();
+            $("#insert").empty();
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Récupérer toutes les taches de l'utilisateur
 function getListTasks(listId) {
+    $('.checkall').attr('id', listId);
+    $('.deleteall').attr('id', listId);
+    $(".add-btn").prop("disabled", false);
     $.ajax({
         url : 'php/lists.php',
         type : 'GET',
@@ -374,14 +384,101 @@ function getListTasks(listId) {
             $("#insert").empty();
             $.each(JSON.parse(data_txt), function(i, obj) {
                 if (obj.state == 0) {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(taskline" + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(task" + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: none;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDone(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 } else {
-                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='crosstask(taskline" + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(task" + obj.id + ");'></i></div></div></div>");
+                    $("#insert").append("<div id='task" + obj.id + "'><div class='row taskline box' id='taskline'><div class='col-md-10'><input class='taskname' style='text-decoration: line-through;' size=60 id='taskline" + obj.id + "' value='" + obj.content + "' disabled></div><div class='col-md-1'><i class='fas fa-check check' onclick='markTaskAsDone(" + listId + ", " + obj.id + ");'></i></div><div class='col-md-1'><i class='fas fa-trash-alt delete' onclick='deleteTask(" + listId + ", " + obj.id + ");'></i></div></div></div>");
                 }
+                $('.checkall').attr('id', listId);
+                $('.deleteall').attr('id', listId);
            });
         },
         error : function(result, statut, erreur){
-            alert("Error !");
+            console.log(erreur);
+        }
+    });
+}
+
+// Créer une nouvelle tache
+function createNewTask() {
+    let listId = $('.checkall').attr('id');
+    let taskInput = $('#task-input').val();
+
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=createListTask&listId=' + listId + '&taskName=' + taskInput,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Supprimer une tache
+function deleteTask(listId, taskId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteListTask&listId=' + listId + '&taskId=' + taskId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Marquer une tache comme terminée
+function markTaskAsDone(listId, taskId) {
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=markTaskAsDone&listId=' + listId + '&taskId=' + taskId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            console.log(data_txt);
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Marquer toutes les taches comme terminées
+function doneAllTask() {
+    let listId = $('.checkall').attr('id');
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=doneAllTask&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
+            console.log(erreur);
+        }
+    });
+}
+
+// Supprimer toutes les taches marqué comme terminées
+function deleteAllDoneTask() {
+    let listId = $('.deleteall').attr('id');
+    $.ajax({
+        url : 'php/lists.php',
+        type : 'GET',
+        data : 'func=deleteAllDoneTask&listId=' + listId,
+        dataType : 'html',
+        success : function(data_txt, statut) {
+            getListTasks(listId);
+        },
+        error : function(result, statut, erreur){
             console.log(erreur);
         }
     });

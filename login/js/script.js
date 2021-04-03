@@ -1,3 +1,4 @@
+// Vérification des champs
 function checkLabel(labeID, input) {
     let label = document.getElementById(labeID);
     input = input;
@@ -10,6 +11,7 @@ function checkLabel(labeID, input) {
     }
 }
 
+// Vérifier si l'utilisateur est connecté
 function onCheckConnection() {
     $.ajax({
         url : 'php/load.php',
@@ -27,6 +29,7 @@ function onCheckConnection() {
     });
 }
 
+// Connexion de l'utilisateur
 function onLogin() {
     $(".login-error-msg").css("display", "none");
     $.ajax({
@@ -49,6 +52,7 @@ function onLogin() {
     });
 }
 
+// Enregistrer un nouvel utilisateur
 function onRegister() {
     $(".register-error-msg").css("display", "none");
     $.ajax({
